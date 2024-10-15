@@ -17,6 +17,11 @@ def changeButtonStyleWithHover(e):
 def changeButtonStyleWithHoverToSelf(e):
      btnRegister.configure(fg='white',background='#a18282')
 
+def OnClickRegister(e):
+    person={'name':txtName.get(),'family':txtFamily.get(),'field':txtfield.get(),'age':txtAge.get()}
+
+def Register():
+    pass
 #TXT
 txtName=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
 txtName.place(x=100,y=100)
@@ -24,8 +29,8 @@ txtName.place(x=100,y=100)
 txtFamily=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
 txtFamily.place(x=100,y=160)
 
-txtfiled=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
-txtfiled.place(x=100,y=220)
+txtfield=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
+txtfield.place(x=100,y=220)
 
 
 txtAge=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
@@ -38,8 +43,8 @@ lblName.place(x=20,y=100)
 lblFamily=Label(win,text='Family',font=('arial',12,'bold'),bg='#a18282',fg='white')
 lblFamily.place(x=20,y=160)
 
-lblFiled=Label(win,text='Filed',font=('arial',12,'bold'),bg='#a18282',fg='white')
-lblFiled.place(x=20,y=220)
+lblField=Label(win,text='Filed',font=('arial',12,'bold'),bg='#a18282',fg='white')
+lblField.place(x=20,y=220)
 
 lblAge=Label(win,text='Age',font=('arial',12,'bold'),bg='#a18282',fg='white')
 lblAge.place(x=20,y=280)
@@ -49,6 +54,7 @@ lblAge.place(x=20,y=280)
 btnRegister=Button(win,text='register',width=10,font=('arial',12,'bold'),bg='#a18282',fg='white')
 btnRegister.bind('<Enter>',changeButtonStyleWithHover)
 btnRegister.bind('<Leave>',changeButtonStyleWithHoverToSelf)
+btnRegister.bind('<Button-1>',OnClickRegister)
 btnRegister.place(x=125,y=350)
 
 win.mainloop()
