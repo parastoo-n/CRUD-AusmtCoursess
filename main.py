@@ -5,7 +5,7 @@ win=Tk()
 win.geometry("800x600")
 # win.attributes('-fullscreen',True)
 win.title('CRUD')
-# win.iconbitmap('icons/python_18894.ico')
+#win.iconbitmap('icons/python_18894.ico')
 win.configure(background='#914d4d')
 
 #TXT
@@ -36,7 +36,7 @@ lblAge=Label(win,text='Age',font=('arial',12,'bold'),bg='#a18282',fg='white')
 lblAge.place(x=20,y=280)
 
 #BTN
-Button
-Register=Button()
+
+btnRegister=Button(win,text='register',font=('arial',12,'bold'),bg='#a18282',fg='white')
 
 win.mainloop()
