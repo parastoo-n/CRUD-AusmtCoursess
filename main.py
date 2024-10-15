@@ -48,7 +48,7 @@ lblAge.place(x=20,y=280)
 
 btnRegister=Button(win,text='register',width=10,font=('arial',12,'bold'),bg='#a18282',fg='white')
 btnRegister.bind('<Enter>',changeButtonStyleWithHover)
-btnRegister.bind('<Leave>',changeButtonStyleWithHover)
+btnRegister.bind('<Leave>',changeButtonStyleWithHoverToSelf)
 btnRegister.place(x=125,y=350)
 
 win.mainloop()
