@@ -8,6 +8,15 @@ win.title('CRUD')
 #win.iconbitmap('icons/python_18894.ico')
 win.configure(background='#914d4d')
 
+
+#def
+
+def changeButtonStyleWithHover(e):
+    btnRegister.configure(fg='#a18282',background='white')
+    
+def changeButtonStyleWithHoverToSelf(e):
+     btnRegister.configure(fg='white',background='#a18282')
+
 #TXT
 txtName=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
 txtName.place(x=100,y=100)
@@ -37,6 +46,9 @@ lblAge.place(x=20,y=280)
 
 #BTN
 
-btnRegister=Button(win,text='register',font=('arial',12,'bold'),bg='#a18282',fg='white')
+btnRegister=Button(win,text='register',width=10,font=('arial',12,'bold'),bg='#a18282',fg='white')
+btnRegister.bind('<Enter>',changeButtonStyleWithHover)
+btnRegister.bind('<Leave>',changeButtonStyleWithHover)
+btnRegister.place(x=125,y=350)
 
 win.mainloop()
