@@ -24,23 +24,47 @@ def changeButtonStyleWithHoverToSelf(e):
 def OnClickRegister(e):
     person={'name':txtName.get(),'family':txtFamily.get(),'field':txtfield.get(),'age':txtAge.get()}
     Register(person)
+    allData=ReadData()
+    CleanTable()
+    for data in allData:
+        InsertDataToTable(data)
+
+    # InsertDataToTable(person)
 
 def Register(person):
     persons.insert_one(person)
-    print(persons)
+   
+def ReadData():
+    AllData=persons.find()
+    return AllData 
+# ReadData() 
+def InsertDataToTable(person):
+    table.insert('','end',values=[person['name'],person['family'],person['field'],person['age']])
+
+def CleanTable():
+    for item in table.get_children():
+        table.delete(item)
+
+def CleanTextBoxfterUseCrud():
+        pass
+      
+Name=StringVar()
+Family=StringVar()
+Field=StringVar() 
+Age=StringVar()          
 
 #TXT
-txtName=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
+txtName=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Name,justify='center')
 txtName.place(x=100,y=100)
 
-txtFamily=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
+txtFamily=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Family,justify='center')
 txtFamily.place(x=100,y=160)
 
-txtfield=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
-txtfield.place(x=100,y=220)
+txtField=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Field,justify='center')
+txtField.place(x=100,y=220)
 
 
-txtAge=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
+txtAge=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Age,justify='center')
 txtAge.place(x=100,y=280)
 
 #LBL
@@ -79,7 +103,7 @@ columns=('Name','Family','Field','Age')
 table=ttk.Treeview(win,columns=columns,show='headings')
 for i in range(len(columns)):
     table.heading(columns[i],text=columns[i])
-    table.column(columns[i],width=100)
+    table.column(columns[i],width=100,anchor='center')
 
 table.place(x=400,y=100)
 
