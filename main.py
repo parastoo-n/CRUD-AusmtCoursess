@@ -25,6 +25,7 @@ def changeButtonStyleWithHoverToSelf(e):
 def OnClickRegister(e):
     if btnRegister.cget('state')==NORMAL:
        try: 
+        
             person={'name':txtName.get(),'family':txtFamily.get(),'field':comboBoxField.get(),'age':int(txtAge.get())}
             if Exist(person)==False:
                Register(person)
