@@ -1,11 +1,12 @@
 from tkinter import *
-from pymongo import MongoClient  
+from pymongo import MongoClient
+from tkinter import ttk  
 Client = MongoClient('localhost',27017)
 db=Client['CRUD']
 persons=db['persons']
 
 win=Tk()
-win.geometry("800x600")
+win.geometry("850x600")
 # win.attributes('-fullscreen',True)
 win.title('CRUD')
 #win.iconbitmap('icons/python_18894.ico')
@@ -62,5 +63,24 @@ btnRegister.bind('<Enter>',changeButtonStyleWithHover)
 btnRegister.bind('<Leave>',changeButtonStyleWithHoverToSelf)
 btnRegister.bind('<Button-1>',OnClickRegister)
 btnRegister.place(x=125,y=350)
+
+#table
+# table=ttk.Treeview(win,columns=('name','family','field','age'),show='headings')
+# table.heading('name',text='Name')
+# table.heading('family',text='Family')
+# table.heading('field',text='Field')
+# table.heading('age',text='Age')
+# table.column('name',width=100)
+# table.column('family',width=100)
+# table.column('field',width=100)
+# table.column('age',width=100)
+
+columns=('Name','Family','Field','Age')
+table=ttk.Treeview(win,columns=columns,show='headings')
+for i in range(len(columns)):
+    table.heading(columns[i],text=columns[i])
+    table.column(columns[i],width=100)
+
+table.place(x=400,y=100)
 
 win.mainloop()
