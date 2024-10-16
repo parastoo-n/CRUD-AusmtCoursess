@@ -1,6 +1,7 @@
 from tkinter import *
 from pymongo import MongoClient
-from tkinter import ttk  
+from tkinter import ttk 
+from tkinter import messagebox 
 Client = MongoClient('localhost',27017)
 db=Client['CRUD']
 persons=db['persons']
@@ -22,19 +23,26 @@ def changeButtonStyleWithHoverToSelf(e):
      btnRegister.configure(fg='white',background='#a18282')
 
 def OnClickRegister(e):
-    if btnRegister.cget('state')=Normal:
-       person={'name':txtName.get(),'family':txtFamily.get(),'field':txtField.get(),'age':txtAge.get()}
-       Register(person)
-       allData=ReadData()
-       CleanTable()
-       for data in allData:
-           InsertDataToTable(data)
-       CleanTextBoxAfterUseCrud()
-
+    if btnRegister.cget('state')==NORMAL:
+       try: 
+            person={'name':txtName.get(),'family':txtFamily.get(),'field':comboBoxField.get(),'age':int(txtAge.get())}
+            if Exist(person)==False:
+               Register(person)
+               allData=ReadData()
+               CleanTable()
+               for data in allData:
+                   InsertDataToTable(data)
+               CleanTextBoxAfterUseCrud()
+               messagebox.showinfo("success","your registration is complete")
+            else:
+                messagebox.showerror("error","you have already registered")
+       except:
+            messagebox.showerror("error","you must enter a number in the age field")
     # InsertDataToTable(person)
-git
+
 def Register(person):
-    persons.insert_one(person)
+    if person['age']>=18:
+       persons.insert_one(person)
    
 def ReadData():
     AllData=persons.find()
@@ -50,18 +58,25 @@ def CleanTable():
 def CleanTextBoxAfterUseCrud():
         Name.set('')
         Family.set('')
-        Field.set('')
+        # Field.set('')
         Age.set('')
         txtName.focus_set()
 def ActiveBtn(e):
-    if txtName.get()!= '' and txtFamily.get() != '' and txtField.get() != '' and txtAge.get() != '':
+    if txtName.get()!= '' and txtFamily.get() != '' and comboBoxField.get() != '' and txtAge.get() != '':
         btnRegister.configure(state=NORMAL)
     else: 
         btnRegister.configure(state=DISABLED)
+
+def Exist(person):
+    allData=ReadData()
+    for data in allData:
+        if data['name'] == person['name'] and data['family'] == person['family'] and data['field'] == person['field'] and data['age'] == person['age']:
+            return True
+    return False                
       
 Name=StringVar()
 Family=StringVar()
-Field=StringVar() 
+# Field=StringVar() 
 Age=StringVar()          
 
 #TXT
@@ -73,9 +88,12 @@ txtFamily=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='whit
 txtFamily.bind('<KeyRelease>',ActiveBtn)
 txtFamily.place(x=100,y=160)
 
-txtField=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Field,justify='center')
-txtField.bind('<KeyRelease>',ActiveBtn)
-txtField.place(x=100,y=220)
+comboBoxField=ttk.Combobox(win,width=15,font=('arial',12,'bold'),foreground='white',background='#a18282')
+comboBoxField.place(x=100,y=220)
+comboBoxField['values']=['computer','electronic','chemistry','physicsgit']
+# txtField=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Field,justify='center')
+# txtField.bind('<KeyRelease>',ActiveBtn)
+# txtField.place(x=100,y=220)
 
 
 txtAge=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Age,justify='center')
