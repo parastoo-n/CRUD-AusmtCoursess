@@ -22,15 +22,17 @@ def changeButtonStyleWithHoverToSelf(e):
      btnRegister.configure(fg='white',background='#a18282')
 
 def OnClickRegister(e):
-    person={'name':txtName.get(),'family':txtFamily.get(),'field':txtfield.get(),'age':txtAge.get()}
-    Register(person)
-    allData=ReadData()
-    CleanTable()
-    for data in allData:
-        InsertDataToTable(data)
+    if btnRegister.cget('state')=Normal:
+       person={'name':txtName.get(),'family':txtFamily.get(),'field':txtField.get(),'age':txtAge.get()}
+       Register(person)
+       allData=ReadData()
+       CleanTable()
+       for data in allData:
+           InsertDataToTable(data)
+       CleanTextBoxAfterUseCrud()
 
     # InsertDataToTable(person)
-
+git
 def Register(person):
     persons.insert_one(person)
    
@@ -45,8 +47,17 @@ def CleanTable():
     for item in table.get_children():
         table.delete(item)
 
-def CleanTextBoxfterUseCrud():
-        pass
+def CleanTextBoxAfterUseCrud():
+        Name.set('')
+        Family.set('')
+        Field.set('')
+        Age.set('')
+        txtName.focus_set()
+def ActiveBtn(e):
+    if txtName.get()!= '' and txtFamily.get() != '' and txtField.get() != '' and txtAge.get() != '':
+        btnRegister.configure(state=NORMAL)
+    else: 
+        btnRegister.configure(state=DISABLED)
       
 Name=StringVar()
 Family=StringVar()
@@ -55,16 +66,20 @@ Age=StringVar()
 
 #TXT
 txtName=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Name,justify='center')
+txtName.bind('<KeyRelease>',ActiveBtn)
 txtName.place(x=100,y=100)
 
 txtFamily=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Family,justify='center')
+txtFamily.bind('<KeyRelease>',ActiveBtn)
 txtFamily.place(x=100,y=160)
 
 txtField=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Field,justify='center')
+txtField.bind('<KeyRelease>',ActiveBtn)
 txtField.place(x=100,y=220)
 
 
 txtAge=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Age,justify='center')
+txtAge.bind('<KeyRelease>',ActiveBtn)
 txtAge.place(x=100,y=280)
 
 #LBL
@@ -83,6 +98,7 @@ lblAge.place(x=20,y=280)
 #BTN
 
 btnRegister=Button(win,text='register',width=10,font=('arial',12,'bold'),bg='#a18282',fg='white')
+btnRegister.configure(state=DISABLED)
 btnRegister.bind('<Enter>',changeButtonStyleWithHover)
 btnRegister.bind('<Leave>',changeButtonStyleWithHoverToSelf)
 btnRegister.bind('<Button-1>',OnClickRegister)
