@@ -1,5 +1,8 @@
 from tkinter import *
-
+from pymongo import MongoClient  
+Client = MongoClient('localhost',27017)
+db=Client['CRUD']
+persons=db['persons']
 
 win=Tk()
 win.geometry("800x600")
@@ -19,9 +22,12 @@ def changeButtonStyleWithHoverToSelf(e):
 
 def OnClickRegister(e):
     person={'name':txtName.get(),'family':txtFamily.get(),'field':txtfield.get(),'age':txtAge.get()}
+    Register(person)
 
-def Register():
-    pass
+def Register(person):
+    persons.insert_one(person)
+    print(persons)
+
 #TXT
 txtName=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white')
 txtName.place(x=100,y=100)
