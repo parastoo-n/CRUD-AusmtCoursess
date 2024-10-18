@@ -7,8 +7,8 @@ db=Client['CRUD']
 persons=db['persons1']
 
 win=Tk()
-win.geometry("850x600")
-# win.attributes('-fullscreen',True)
+# win.geometry("850x600")
+win.attributes('-fullscreen',True)
 win.title('CRUD')
 #win.iconbitmap('icons/python_18894.ico')
 win.configure(background='#914d4d')
@@ -170,14 +170,20 @@ def FindData(Data):
         if data['name'] == Data['name'] and data['family'] == Data['family'] and data['field'] == Data['field'] and data['age'] == Data['age']:
             return data
     return False
- #Tex     
+
+def DestroyWindow(e):
+   win.destroy()
+ #Texvariable     
 Name=StringVar()
 Family=StringVar()
 # Field=StringVar() 
 Age=StringVar() 
-Search=StringVar()         
+Search=StringVar() 
 
-#TXT
+#image
+closeImage=PhotoImage(file='images/close-window-16.png')
+
+#TXTbox
 txtName=Entry(win,width=15,bd=5,font=('arial',15,'bold'),bg='#a18282',fg='white',textvariable=Name,justify='center')
 txtName.bind('<KeyRelease>',ActiveBtn)
 txtName.place(x=100,y=100)
@@ -242,6 +248,16 @@ btnUpdate.bind('<Button-1>',OnClickUpdate)
 btnUpdate.place(x=400 ,y=330)
 
 
+
+btnUpdate=Button(win,text='Update',width=9,font=('arial',12,'bold'),bg='#a18282',fg='white')
+btnUpdate.bind('<Enter>',changeButtonStyleWithHover)
+btnUpdate.bind('<Leave>',changeButtonStyleWithHoverToSelf)
+btnUpdate.bind('<Button-1>',OnClickUpdate)
+btnUpdate.place(x=400 ,y=330)
+
+CloseBtn=Button(win,image=closeImage)
+CloseBtn.bind('<Button-1>',DestroyWindow)
+CloseBtn.place(x=10,y=10)
 
 #table
 # table=ttk.Treeview(win,columns=('name','family','field','age'),show='headings')
